@@ -73,6 +73,10 @@ int main(int argc, char *argv[]){
         fputs(strcat(texto,"\n"),archivo);
         fclose(archivo);
 
+        if (chmod(ruta, S_IRWXU | S_IRWXG | S_IRWXO) == 0) {
+            printf("Permisos establecidos.\n");
+    }
+
     }else if(strcmp(operacion,"create_collection")==0){
             char rutaColeccion[200];
             strcpy(rutaColeccion,"db/");
@@ -106,19 +110,6 @@ int main(int argc, char *argv[]){
         remove(ruta);
         printf("Documento eliminado.\n");
 
-    }else if (strcmp(operacion,"delete_collection") == 0){
-            char rutaColeccion[200];
-            strcpy(rutaColeccion,"db/");
-            strcat(rutaColeccion,basededatos);
-            strcat(rutaColeccion,"/");
-            strcat(rutaColeccion,coleccion);
-
-            if(rmdir(rutaColeccion) == 0){
-                printf("Carpeta borrada");
-            }else{
-                printf("%s", rutaColeccion);
-                printf("Error al borrar carpeta");
-            }
     }else if(strcmp(operacion,"update")==0){
         char *documento = argv[4];
         char *texto = argv[5];
